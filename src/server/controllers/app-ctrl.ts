@@ -10,6 +10,10 @@ const notFound = (req:any, res:any):any =>  {
     res.redirect('/error/404')
 }
 
+const signup = (req:any, res:any):any =>  {
+    res.redirect('/signup')
+}
+
 export {
     isAlive,
     notFound,
