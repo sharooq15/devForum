@@ -5,13 +5,17 @@
   "main": "dist/app.js",
   "scripts": {
     "start": "tsc && node dist/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --cache --ext ts",
+    "lint:ci": "eslint . --ext ts"
   },
   "author": "sharooq",
   "license": "UNLICENSED",
   "devDependencies": {
     "@types/express": "^4.16.1",
-    "tslint": "^5.12.1",
+    "@typescript-eslint/eslint-plugin": "^4.8.2",
+    "@typescript-eslint/parser": "^4.8.2",
+    "eslint": "^7.14.0",
     "typescript": "^3.3.3"
   },
   "dependencies": {
