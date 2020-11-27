@@ -1,7 +1,6 @@
 import http from 'http';
 import nconf from 'nconf';
 import express from 'express';
-// import multiparty from 'connect-multiparty';
 import cookieParser from 'cookie-parser';
 import attachRoutes from './server/routes';
 import * as middleware from './server/middlewares';
@@ -19,7 +18,6 @@ const app = express(),
 // attaching middlewares
 app.use(cookieParser());
 app.use([middleware.rawBodyParser, middleware.encodedBodyParser, middleware.jsonBodyParser]);
-// app.use(multiparty());
 
 // attaching routes
 attachRoutes(app);
