@@ -6,8 +6,7 @@
   "scripts": {
     "start": "tsc && node dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint . --cache --ext ts",
-    "lint:ci": "eslint . --ext ts"
+    "lint": "eslint . --ext ts"
   },
   "author": "sharooq",
   "license": "UNLICENSED",
@@ -19,6 +18,11 @@
     "typescript": "^3.3.3"
   },
   "dependencies": {
-    "express": "^4.16.4"
+    "@types/cookie-parser": "^1.4.2",
+    "@types/multiparty": "^0.0.32",
+    "@types/nconf": "^0.10.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.16.4",
+    "nconf": "^0.11.0"
   }
 }
