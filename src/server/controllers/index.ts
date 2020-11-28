@@ -2,6 +2,9 @@ import {
   isAlive,
   notFound,
 } from './app-ctrl';
+import { 
+  createQuestion 
+} from './question-ctrl';
 
 import { 
   signup
@@ -10,5 +13,6 @@ import {
 export {
   isAlive,
   notFound,
-  signup
+  signup,
+  createQuestion,
 }
