@@ -5,8 +5,12 @@
 - Creating the question comment
 */
 import { 
-  generateUUID
+  generateUUID,
+  docClient,
 } from '../../api-utils';
+import { 
+  tableNames 
+} from '../../common';
 
 type CreateQuestionRequest = {
   body: {
@@ -14,7 +18,6 @@ type CreateQuestionRequest = {
     description: string,
     ownerId: string,
     tags?: string[],
-    votes?: number,
   }
 }
 
@@ -34,17 +37,16 @@ type AddTagRequest = {
   }
 }
 
-const createQuestion = (
+const createQuestion = async (
   req: CreateQuestionRequest, 
   res: any
-): void => {
+): Promise<boolean> => {
   const {
     body: {
       stem,
       description,
       ownerId,
       tags,
-      votes,
     }
   } = req;
   console.log(req,'req');
@@ -54,9 +56,30 @@ const createQuestion = (
     description,
     ownerId,
     tags,
-    votes,
   }
-  res.send(response);
+  try{
+    const input = {
+      "id": response.id,
+      "t": stem,
+      "d": description,
+      "uId": ownerId,
+      "tgs": tags,
+      // NOTE: I'm making the answered status of the question false by default as no questions can be answerd during its creation.
+      "anS": false,
+    };
+    const params = {
+      TableName: tableNames.QUESTION,
+      Item: input
+    };
+    await docClient.put(params).promise();
+  }catch(e){
+    console.log('Error Creating Question Record', e);
+  }
+
+  if(res){
+    res.send(response);
+  }
+  return true;
 }
 
 const addQuestionTags = (
