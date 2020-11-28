@@ -6,6 +6,7 @@ import {
 import { 
   createQuestion,
   addQuestionTags,
+  viewUnAnsweredQuestions,
 } from './question-ctrl';
 
 import type {
@@ -27,7 +28,8 @@ import {
 
 import {
   writeAnswer,
-  markAnswerAsCorrect
+  markAnswerAsCorrect,
+  viewExistingAnswers,
 } from './answer-ctrl'
 
 export type {
@@ -44,5 +46,7 @@ export {
   createQuestion,
   addQuestionTags,
   writeAnswer,
-  markAnswerAsCorrect
+  markAnswerAsCorrect,
+  viewUnAnsweredQuestions,
+  viewExistingAnswers,
 }

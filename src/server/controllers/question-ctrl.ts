@@ -17,7 +17,6 @@ type CreateQuestionRequest = {
     stem: string,
     description: string,
     ownerId: string,
-    tags?: string[],
   }
 }
 
@@ -26,8 +25,14 @@ type QuestionDetails = {
   stem: string,
   description: string,
   ownerId: string,
-  tags?: string[],
-  votes?: number,
+}
+
+type Question = {
+  id: string,
+  stem: string,
+  description: string,
+  votes: number,
+  comments: string[],
 }
 
 type AddTagRequest = {
@@ -46,7 +51,6 @@ const createQuestion = async (
       stem,
       description,
       ownerId,
-      tags,
     }
   } = req;
   const response: QuestionDetails = {
@@ -54,7 +58,6 @@ const createQuestion = async (
     stem,
     description,
     ownerId,
-    tags,
   }
   try{
     const input = {
@@ -62,7 +65,6 @@ const createQuestion = async (
       "t": stem,
       "d": description,
       "uId": ownerId,
-      "tgs": tags,
       /* NOTE: I'm making the answered status of the question false by default as no questions can be answerd during its creation.
       and comments to empty array followed by votes to 0
       */
@@ -98,7 +100,42 @@ const addQuestionTags = (
   res.send(`Successfully added question tags for ${questionId}`);
 }
 
+const viewUnAnsweredQuestions = async(
+  req:any, 
+  res: any
+): Promise<boolean> => {
+  try {
+    const params = {
+      TableName: tableNames.QUESTION,
+      FilterExpression: "anS = :anS",
+      ExpressionAttributeValues: {
+        ":anS": false
+      }
+    };
+    const responseItems = await docClient.scan(params).promise();
+    const questions: Question[] | undefined = responseItems.Items?.map((item) =>{
+      const question: Question = {
+        id: item.id,
+        stem: item.t,
+        description: item.d,
+        votes: item.vt,
+        comments: item.c,
+      }
+      return question;
+    })
+    if(res && questions && questions.length) {
+      res.send(questions);
+    } else if(res){
+      res.send('All the questions are answered');
+    }
+  }catch(e){
+    console.log('Error Getting Question', e);
+  }
+  return true;
+}
+
 export{
   createQuestion,
+  viewUnAnsweredQuestions,
   addQuestionTags
 }

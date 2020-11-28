@@ -10,6 +10,8 @@ import {
   castVote,
   writeAnswer,
   markAnswerAsCorrect,
+  viewUnAnsweredQuestions,
+  viewExistingAnswers,
 } from '../controllers';
 
 const router = routerFactory();
@@ -40,6 +42,13 @@ router.route('/api/answer')
 
 router.route('/api/markAnswer')
   .post(markAnswerAsCorrect);
+
+router.route('/api/viewQuestions')
+  .get(viewUnAnsweredQuestions);
+
+router.route('/api/viewAnswers')
+  .get(viewExistingAnswers);
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const  attachRoutes = (app: any) => {
   app.use(router);
