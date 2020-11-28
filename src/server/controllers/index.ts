@@ -23,7 +23,11 @@ import {
 
 import {
   castVote
-} from './vote-ctrl'
+} from './vote-ctrl';
+
+import {
+  writeAnswer
+} from './answer-ctrl'
 
 export type {
   UserCreationRequest,
@@ -38,4 +42,5 @@ export {
   signup,
   createQuestion,
   addQuestionTags,
+  writeAnswer,
 }
