@@ -1,29 +1,40 @@
 // NOTE: User related operation will be listed here.
-import { v4 as UUIDv4 } from 'uuid'
+import { 
+  generateUUID 
+} from '../../api-utils';
 
 type UserDetails = {
-    id: string;
-    name: string;
-    password: string;
+  id: string;
+  username: string;
+  password: string;
 }
 
 type UserCreationRequest = {
-    name: string;
+  body: {
+    username: string;
     password: string;
+  }
 }
 
 const signup = (
-    req: UserCreationRequest, 
-    res: any
+  req: UserCreationRequest, 
+  res: any
 ): void => {
-    const response: UserDetails = {
-        id: UUIDv4(),
-        name: req.name,
-        password: req.password
+  const {
+    body: {
+      username,
+      password
     }
-    res.send(response);
+  } = req;
+  console.log(req,'req');
+  const response: UserDetails = {
+    id: generateUUID(),
+    username,
+    password
+  }
+  res.send(response);
 }
 
 export { 
-    signup
+  signup
 }

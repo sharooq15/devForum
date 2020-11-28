@@ -1,14 +1,14 @@
 import {
-    isAlive,
-    notFound,
+  isAlive,
+  notFound,
 } from './app-ctrl';
 
 import { 
-    signup
+  signup
 } from './user-ctrl'
 
 export {
-    isAlive,
-    notFound,
-    signup
+  isAlive,
+  notFound,
+  signup
 }
