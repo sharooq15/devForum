@@ -4,6 +4,10 @@ import {
   docClient
 } from '../../api-utils';
 
+import {
+  tableNames
+} from '../../common';
+
 type UserDetails = {
   id: string;
   username: string;
@@ -39,7 +43,7 @@ const signup = async (
       "pw": password,
     };
     const params = {
-      TableName: "user",
+      TableName: tableNames.USER,
       Item: input
     };
     await docClient.put(params).promise();
