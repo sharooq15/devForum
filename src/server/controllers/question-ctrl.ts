@@ -49,7 +49,6 @@ const createQuestion = async (
       tags,
     }
   } = req;
-  console.log(req,'req');
   const response: QuestionDetails = {
     id: generateUUID(),
     stem,
