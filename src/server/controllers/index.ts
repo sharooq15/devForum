@@ -21,12 +21,17 @@ import {
   createComment
 } from './comment-ctrl';
 
+import {
+  castVote
+} from './vote-ctrl'
+
 export type {
   UserCreationRequest,
   UserDetails,
 }
 
 export {
+  castVote,
   createComment,
   isAlive,
   notFound,
