@@ -13,8 +13,8 @@ type CreateQuestionRequest = {
     stem: string,
     description: string,
     ownerId: string,
-    tags: string[],
-    votes: number,
+    tags?: string[],
+    votes?: number,
   }
 }
 
@@ -23,8 +23,15 @@ type QuestionDetails = {
   stem: string,
   description: string,
   ownerId: string,
-  tags: string[],
-  votes: number,
+  tags?: string[],
+  votes?: number,
+}
+
+type AddTagRequest = {
+  body: {
+    questionId: string,
+    tags: string[]
+  }
 }
 
 const createQuestion = (
@@ -52,6 +59,20 @@ const createQuestion = (
   res.send(response);
 }
 
+const addQuestionTags = (
+  req:AddTagRequest, 
+  res:any
+) => {
+  const {
+    body: {
+      questionId,
+      tags
+    }
+  } = req;
+  res.send(`Successfully added question tags for ${questionId}`);
+}
+
 export{
-  createQuestion
+  createQuestion,
+  addQuestionTags
 }

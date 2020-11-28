@@ -3,7 +3,8 @@ import {
   notFound,
 } from './app-ctrl';
 import { 
-  createQuestion 
+  createQuestion,
+  addQuestionTags,
 } from './question-ctrl';
 
 import { 
@@ -15,4 +16,5 @@ export {
   notFound,
   signup,
   createQuestion,
+  addQuestionTags,
 }
