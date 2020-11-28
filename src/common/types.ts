@@ -1,8 +1,8 @@
-enum QuestionOrAnswer {
+enum Content {
   "Question",
   "Answer"
 }
 
-export type {
-  QuestionOrAnswer
+export {
+  Content
 }
