@@ -1,7 +1,9 @@
 import { 
-  generateUUID
+  generateUUID,
+  docClient
 } from './api-util'
 
 export {
-  generateUUID
+  generateUUID,
+  docClient
 }
