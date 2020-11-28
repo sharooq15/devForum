@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Router as routerFactory } from 'express';
+import { routerPaths } from '../../common'
 import { 
   isAlive,
   notFound,
@@ -16,37 +17,37 @@ import {
 
 const router = routerFactory();
 
-router.route('/api/isAlive')
+router.route(routerPaths['isAlive'])
   .post(isAlive);
 
-router.route('/api/notFound')
+router.route(routerPaths['notFound'])
   .post(notFound);
 
-router.route('/api/signup')
+router.route(routerPaths['signup'])
   .post(signup);
 
-router.route('/api/createQuestion')
+router.route(routerPaths['createQuestion'])
   .post(createQuestion);
 
-router.route('/api/addQuestionTags')
+router.route(routerPaths['addQuestionTags'])
   .post(addQuestionTags);
 
-router.route('/api/comment')
+router.route(routerPaths['createComment'])
   .post(createComment);
 
-router.route('/api/vote')
+router.route(routerPaths['castVote'])
   .post(castVote);
 
-router.route('/api/answer')
+router.route(routerPaths['writeAnswer'])
   .post(writeAnswer);
 
-router.route('/api/markAnswer')
+router.route(routerPaths['markAnswerAsCorrect'])
   .post(markAnswerAsCorrect);
 
-router.route('/api/viewQuestions')
+router.route(routerPaths['viewUnAnsweredQuestions'])
   .get(viewUnAnsweredQuestions);
 
-router.route('/api/viewAnswers')
+router.route(routerPaths['viewExistingAnswers'])
   .get(viewExistingAnswers);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

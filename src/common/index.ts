@@ -10,8 +10,13 @@ import {
   tableNames
 } from './tables';
 
+import {
+  routerPaths
+} from './paths'
+
 export {
   Content,
   awsConfig,
-  tableNames
+  tableNames,
+  routerPaths
 }
