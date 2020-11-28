@@ -4,11 +4,9 @@ Comment changes will be here
 */
 
 import { 
-  docClient 
+  docClient, 
+  getTableName 
 } from '../../api-utils';
-import { 
-  tableNames
-} from '../../common'
 
 type CreateCommentRequest = {
   body: {
@@ -30,7 +28,7 @@ const createComment = async (
     }
   } = req;
   try{
-    const tableName = commentFor === 'Question' ? tableNames.QUESTION: tableNames.ANSWER
+    const tableName = getTableName(commentFor) 
     const params = {
       TableName: tableName,
       Key: {

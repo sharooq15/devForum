@@ -2,23 +2,51 @@
 The Api changes required for voting for particular question and answer goes here
 */
 
-import  {
-  Content
-} from '../../common'
+import { 
+  docClient, 
+  getTableName 
+} from "../../api-utils";
 
 type CastVoteRequest = {
   body: {
-    voteFor: Content,
+    contentId: string,
+    voteFor: string,
   }
 }
 
-const castVote = (req:CastVoteRequest, res:any) => {
+const castVote = async (
+  req:CastVoteRequest, 
+  res:any
+): Promise<boolean> => {
   const {
     body:{
-      voteFor
+      voteFor,
+      contentId,
     }
   } = req;
-  // TODO: Based on commentFor we can change the comments to either question or answer
+  try{
+    const tableName = getTableName(voteFor)
+    const params = {
+      TableName: tableName,
+      Key: {
+        "id": contentId,
+      },
+      UpdateExpression: "set vt = if_not_exists(vt, :start_with) + :vt",
+      ExpressionAttributeValues: {
+        ":vt": 1,
+        ":start_with": 0,
+      },
+      ReturnValues: "UPDATED_NEW"
+    };
+    await docClient.update(params).promise();
+  
+  }catch (e) {
+    console.log('Error Casting Vote', e);
+  }
+  if(res){
+    res.send(`Successfully Casted Your Vote To ${voteFor}`);
+  }
+  return true;
 }
 
 export {

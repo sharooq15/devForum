@@ -64,9 +64,12 @@ const createQuestion = async (
       "d": description,
       "uId": ownerId,
       "tgs": tags,
-      // NOTE: I'm making the answered status of the question false by default as no questions can be answerd during its creation.
+      /* NOTE: I'm making the answered status of the question false by default as no questions can be answerd during its creation.
+      and comments to empty array followed by votes to 0
+      */
       "anS": false,
       "c": [],
+      "vt": 0
     };
     const params = {
       TableName: tableNames.QUESTION,

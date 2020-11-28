@@ -1,21 +1,20 @@
 /*
-All the test that are related to comments will be done here. 
+All the test that are related to votes will be done here. 
 */
 
 import {
-  createComment,
+  castVote,
 } from '../../src/server/controllers'
 
-describe('Testing Comment Related Operations', () => {
-  it('Create Comment for question', async () => {
+describe('Testing Vote Related Operations', () => {
+  it('Cast Vote for question', async () => {
     const req = {
       body: {
         contentId: "363c6260-5393-4933-835b-af5aa10a4d0b",
-        comment: "this is a comment for question",
-        commentFor: 'Question',
+        voteFor: 'Question',
       }
     }
-    const result = await createComment(req, null);
+    const result = await castVote(req, null);
     console.log('result', result);
     expect(result).toBe(true);
   });

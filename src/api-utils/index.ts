@@ -1,9 +1,11 @@
 import { 
   generateUUID,
-  docClient
+  docClient,
+  getTableName
 } from './api-util'
 
 export {
   generateUUID,
-  docClient
+  docClient,
+  getTableName
 }
