@@ -1,6 +1,7 @@
 // NOTE: User related operation will be listed here.
 import { 
-  generateUUID 
+  generateUUID,
+  docClient
 } from '../../api-utils';
 
 type UserDetails = {
@@ -16,25 +17,46 @@ type UserCreationRequest = {
   }
 }
 
-const signup = (
+const signup = async (
   req: UserCreationRequest, 
   res: any
-): void => {
+): Promise<boolean> => {
   const {
     body: {
       username,
       password
     }
   } = req;
-  console.log(req,'req');
   const response: UserDetails = {
     id: generateUUID(),
     username,
     password
   }
-  res.send(response);
+  try{
+    const input = {
+      "id": response.id,
+      "un": username,
+      "pw": password,
+    };
+    const params = {
+      TableName: "user",
+      Item: input
+    };
+    await docClient.put(params).promise();
+  }catch(e){
+    console.log('Error Creating User Record', e);
+  }
+
+  if(res){
+    res.send(response);
+  }
+  return true;
 }
 
+export type {
+  UserCreationRequest,
+  UserDetails
+}
 export { 
   signup
 }
