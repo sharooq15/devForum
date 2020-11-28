@@ -1,5 +1,5 @@
-import type {
-  QuestionOrAnswer
+import  {
+  Content
 } from './types';
 
 import {
@@ -10,12 +10,8 @@ import {
   tableNames
 } from './tables';
 
-
-export type{
-  QuestionOrAnswer
-}
-
 export {
+  Content,
   awsConfig,
-  tableNames,
+  tableNames
 }

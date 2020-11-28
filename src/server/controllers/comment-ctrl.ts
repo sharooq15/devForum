@@ -4,28 +4,53 @@ Comment changes will be here
 */
 
 import { 
-  generateUUID
+  docClient 
 } from '../../api-utils';
-
-import type {
-  QuestionOrAnswer
+import { 
+  tableNames
 } from '../../common'
 
 type CreateCommentRequest = {
   body: {
+    contentId: string,
     comment: string,
-    commentFor: QuestionOrAnswer,
+    commentFor: string,
   }
 }
 
-const createComment = (req:CreateCommentRequest, res:any) => {
+const createComment = async (
+  req:CreateCommentRequest, 
+  res:any
+):Promise<boolean> => {
   const {
     body:{
+      contentId,
       comment,
       commentFor,
     }
   } = req;
-  // TODO: Based on commentFor we can change the comments to either question or answer
+  try{
+    const tableName = commentFor === 'Question' ? tableNames.QUESTION: tableNames.ANSWER
+    const params = {
+      TableName: tableName,
+      Key: {
+        "id": contentId,
+      },
+      UpdateExpression: "set c = list_append(if_not_exists(c, :empty_list), :c)",
+      ExpressionAttributeValues: {
+        ":empty_list": [],
+        ":c": [comment],
+      },
+      ReturnValues: "UPDATED_NEW"
+    };
+    await docClient.update(params).promise();
+  }catch(e){
+    console.log(`Error Adding Comment to ${commentFor}`)
+  }
+  if(res){
+    res.send('Successfully Added the Comment');
+  }
+  return true;
 }
 
 export {

@@ -2,13 +2,13 @@
 The Api changes required for voting for particular question and answer goes here
 */
 
-import type {
-  QuestionOrAnswer
+import  {
+  Content
 } from '../../common'
 
 type CastVoteRequest = {
   body: {
-    voteFor: QuestionOrAnswer,
+    voteFor: Content,
   }
 }
 

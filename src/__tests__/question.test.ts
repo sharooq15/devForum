@@ -6,7 +6,7 @@ import {
   createQuestion,
 } from '../../src/server/controllers'
 
-describe('Testing User Related Operations', () => {
+describe('Testing Question Related Operations', () => {
   it('Create Question with tag', async () => {
     const req = {
       body: {

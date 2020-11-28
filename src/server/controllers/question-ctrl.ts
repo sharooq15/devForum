@@ -66,6 +66,7 @@ const createQuestion = async (
       "tgs": tags,
       // NOTE: I'm making the answered status of the question false by default as no questions can be answerd during its creation.
       "anS": false,
+      "c": [],
     };
     const params = {
       TableName: tableNames.QUESTION,

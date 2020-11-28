@@ -17,12 +17,17 @@ import {
   signup
 } from './user-ctrl';
 
+import { 
+  createComment
+} from './comment-ctrl';
+
 export type {
   UserCreationRequest,
   UserDetails,
 }
 
 export {
+  createComment,
   isAlive,
   notFound,
   signup,

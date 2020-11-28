@@ -6,6 +6,7 @@ import {
   signup,
   createQuestion,
   addQuestionTags,
+  createComment
 } from '../controllers';
 
 const router = routerFactory();
@@ -24,6 +25,9 @@ router.route('/api/createQuestion')
 
 router.route('/api/addQuestionTags')
   .post(addQuestionTags);
+
+router.route('/api/comment')
+  .post(createComment);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const  attachRoutes = (app: any) => {
