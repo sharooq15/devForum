@@ -4,6 +4,7 @@ import {
   isAlive,
   notFound,
   signup,
+  createQuestion,
 } from '../controllers';
 
 const router = routerFactory();
@@ -16,6 +17,9 @@ router.route('/api/notFound')
 
 router.route('/api/signup')
   .post(signup);
+
+router.route('/api/createQuestion')
+  .post(createQuestion);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const  attachRoutes = (app: any) => {
