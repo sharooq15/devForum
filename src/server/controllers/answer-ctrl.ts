@@ -25,10 +25,23 @@ type AnswerDetails = {
   text: string,
 }
 
+type Answer = {
+  text: string,
+  questionId: string,
+  votes: number,
+  comments: string[],
+}
+
 type MarkAnswerAsCorrectRequest = {
   body: {
     answerId: string,
     currentUserId: string,
+  }
+}
+
+type ViewExistingAnswersRequest = {
+  body: {
+    questionId: string,
   }
 }
 
@@ -139,7 +152,47 @@ const markAnswerAsCorrect = async(
   }
   return true;
 }
+
+const viewExistingAnswers = async(
+  req: ViewExistingAnswersRequest, 
+  res: any
+): Promise<boolean> => {
+  const {
+    body: {
+      questionId,
+    }
+  } = req;
+  try{
+    const params = {
+      TableName: tableNames.ANSWER,
+      FilterExpression: "qId = :qId",
+      ExpressionAttributeValues: {
+        ":qId": questionId
+      }
+    };
+    const responseItems = await docClient.scan(params).promise();
+    const answers: Answer[] | undefined = responseItems.Items?.map((item) => {
+      const answer: Answer = {
+        text: item.t,
+        questionId: item.qId,
+        votes: item.vt,
+        comments: item.c 
+      }
+      return answer;
+    })
+    if(res && answers && answers.length) {
+      res.send(answers);
+    } else if(res){
+      res.send('There are no existing answers');
+    }
+  }catch(e){
+    console.log('Error Getting the Answers for the Question', e);
+  }
+  return true;
+}
+
 export {
   writeAnswer,
   markAnswerAsCorrect,
+  viewExistingAnswers,
 }
