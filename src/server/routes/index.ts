@@ -5,6 +5,7 @@ import {
   notFound,
   signup,
   createQuestion,
+  addQuestionTags,
 } from '../controllers';
 
 const router = routerFactory();
@@ -20,6 +21,9 @@ router.route('/api/signup')
 
 router.route('/api/createQuestion')
   .post(createQuestion);
+
+router.route('/api/addQuestionTags')
+  .post(addQuestionTags);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const  attachRoutes = (app: any) => {
