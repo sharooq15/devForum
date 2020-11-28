@@ -26,7 +26,8 @@ import {
 } from './vote-ctrl';
 
 import {
-  writeAnswer
+  writeAnswer,
+  markAnswerAsCorrect
 } from './answer-ctrl'
 
 export type {
@@ -43,4 +44,5 @@ export {
   createQuestion,
   addQuestionTags,
   writeAnswer,
+  markAnswerAsCorrect
 }
