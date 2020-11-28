@@ -2,6 +2,7 @@
 Answer related API are implemented here
 */
 
+import { GetItemOutput } from "aws-sdk/clients/dynamodb";
 import { 
   docClient,
   generateUUID 
@@ -22,6 +23,13 @@ type WriteAnswerRequest = {
 type AnswerDetails = {
   id: string,
   text: string,
+}
+
+type MarkAnswerAsCorrectRequest = {
+  body: {
+    answerId: string,
+    currentUserId: string,
+  }
 }
 
 const writeAnswer = async (
@@ -66,6 +74,72 @@ const writeAnswer = async (
   return true;
 }
 
+const markAnswerAsCorrect = async(
+  req:MarkAnswerAsCorrectRequest,
+  res: any
+): Promise<boolean> => {
+  const {
+    body: {
+      answerId,
+      currentUserId,
+    }
+  } = req
+  try{
+    const params = {
+      TableName : tableNames.ANSWER,
+      Key: {
+        id: answerId
+      }
+    };
+    const responseItem: GetItemOutput = await docClient.get(params).promise();
+    const {
+      Item:{
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore 
+        uId, qId
+      }
+    } = responseItem;
+    if(uId === currentUserId){
+      const markAnswerAsCorrectParams = {
+        TableName: tableNames.ANSWER,
+        Key: {
+          "id": answerId,
+        },
+        UpdateExpression: "set isC = :isC",
+        ExpressionAttributeValues: {
+          ":isC": true,
+        },
+        ReturnValues: "UPDATED_NEW"
+      };
+
+      const markQuestionAsAnsweredParams = {
+        TableName: tableNames.QUESTION,
+        Key: {
+          "id": qId,
+        },
+        UpdateExpression: "set anS = :anS",
+        ExpressionAttributeValues: {
+          ":anS": true,
+        },
+        ReturnValues: "UPDATED_NEW"
+      };
+
+      await docClient.update(markAnswerAsCorrectParams).promise();
+      await docClient.update(markQuestionAsAnsweredParams).promise();
+      if(res){
+        res.send('Successfully Marked the Answer As Correct')
+      }
+    } else{
+      if(res){
+        res.send('Only Owners Can Mark Answer As Correct')
+      }
+    }
+  }catch(e){
+    console.log('Error Marking Answer as correct', e);
+  }
+  return true;
+}
 export {
-  writeAnswer
+  writeAnswer,
+  markAnswerAsCorrect,
 }
