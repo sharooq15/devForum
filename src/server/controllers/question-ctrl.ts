@@ -53,6 +53,7 @@ const createQuestion = async (
       stem,
       description,
       ownerId,
+      tags
     }
   } = req;
   const response: QuestionDetails = {
@@ -73,7 +74,7 @@ const createQuestion = async (
       "anS": false,
       "c": [],
       "vt": 0,
-      "tgs": []
+      "tgs": tags || []
     };
     const params = {
       TableName: tableNames.QUESTION,
@@ -128,7 +129,7 @@ const addQuestionTags = async(
 }
 
 const viewUnAnsweredQuestions = async(
-  req:any, 
+  req: null, 
   res: any
 ): Promise<boolean> => {
   try {
