@@ -1,0 +1,400 @@
+{
+	"info": {
+		"_postman_id": "8019575a-ffc6-4385-bbe1-3fd4b14d8ef3",
+		"name": "Developer Forum",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"string\",\n    \"password\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://35.154.201.177:3000/api/signup",
+							"protocol": "http",
+							"host": [
+								"35",
+								"154",
+								"201",
+								"177"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Question",
+			"item": [
+				{
+					"name": "Create Question",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"stem\": \"string\",\n    \"description\": \"string\",\n    \"ownerId\": \"string\",\n    \"tags\": \"string[]\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://35.154.201.177:3000/api/createQuestion",
+							"protocol": "http",
+							"host": [
+								"35",
+								"154",
+								"201",
+								"177"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"createQuestion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add tag to a question",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"questionId\": \"string\",\n    \"tags\": \"string[]\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://35.154.201.177:3000/api/addQuestionTags",
+							"protocol": "http",
+							"host": [
+								"35",
+								"154",
+								"201",
+								"177"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"addQuestionTags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get the Questions added to a particular tag",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tag\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://35.154.201.177:3000/api/tag",
+							"protocol": "http",
+							"host": [
+								"35",
+								"154",
+								"201",
+								"177"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"tag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search for questions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"input\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://35.154.201.177:3000/api/search",
+							"protocol": "http",
+							"host": [
+								"35",
+								"154",
+								"201",
+								"177"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"search"
+							]
+						},
+						"description": "You can search for a questions containing a particular words"
+					},
+					"response": []
+				},
+				{
+					"name": "View Unanswered Questions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://35.154.201.177:3000/api/viewQuestions",
+							"protocol": "http",
+							"host": [
+								"35",
+								"154",
+								"201",
+								"177"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"viewQuestions"
+							]
+						},
+						"description": "You can view all the unanswered questions using this API"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "Add a Comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contentId\": \"string\",\n    \"comment\": \"string\",\n    \"commentFor\": \"string\"\n    // CommentFor you should pass either Question or Answer\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://35.154.201.177:3000/api/comment",
+							"protocol": "http",
+							"host": [
+								"35",
+								"154",
+								"201",
+								"177"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"comment"
+							]
+						},
+						"description": "Using this API you can add a comment to question or answer just by mentioning the contentType"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Vote",
+			"item": [
+				{
+					"name": "Cast your vote",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"contentId\": \"string\",\n    \"voteFor\": \"string\"\n    // The voteFor property can either be Answer or Question\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://35.154.201.177:3000/api/vote",
+							"protocol": "http",
+							"host": [
+								"35",
+								"154",
+								"201",
+								"177"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"vote"
+							]
+						},
+						"description": "You can either vote a question or answer by specifying the content type"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Answer",
+			"item": [
+				{
+					"name": "Write answer to a particular question",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"string\",\n    \"questionId\": \"string\",\n    \"questionOwnerId\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://35.154.201.177:3000/api/answer",
+							"protocol": "http",
+							"host": [
+								"35",
+								"154",
+								"201",
+								"177"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"answer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Existing Answers for a question",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"questionId\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://35.154.201.177:3000/api/viewAnswers",
+							"protocol": "http",
+							"host": [
+								"35",
+								"154",
+								"201",
+								"177"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"viewAnswers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark Answer as correct",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"answerId\": \"string\", \n    \"currentUserId\": \"string\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://35.154.201.177:3000/api/markAnswer",
+							"protocol": "http",
+							"host": [
+								"35",
+								"154",
+								"201",
+								"177"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"markAnswer"
+							]
+						},
+						"description": "Only question creators can mark the content as correct"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
