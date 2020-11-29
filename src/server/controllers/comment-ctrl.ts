@@ -43,7 +43,9 @@ const createComment = async (
     };
     await docClient.update(params).promise();
   }catch(e){
-    console.log(`Error Adding Comment to ${commentFor}`)
+    console.log(`Error Adding Comment to ${commentFor}`);
+    res.send('Error Adding Comment');
+    return false;
   }
   if(res){
     res.send('Successfully Added the Comment');

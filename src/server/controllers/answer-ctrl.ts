@@ -80,6 +80,8 @@ const writeAnswer = async (
     await docClient.put(params).promise();
   }catch(e){
     console.log('Error Creating Question Record', e);
+    res.send('Error Creating Question Record');
+    return false;
   }
   if(res){
     res.send(response);
@@ -149,6 +151,8 @@ const markAnswerAsCorrect = async(
     }
   }catch(e){
     console.log('Error Marking Answer as correct', e);
+    console.log('Error Marking Answer as Correct');
+    return false;
   }
   return true;
 }
@@ -187,6 +191,8 @@ const viewExistingAnswers = async(
     }
   }catch(e){
     console.log('Error Getting the Answers for the Question', e);
+    res.send('Error getting the Answers for the Question');
+    return false;
   }
   return true;
 }
