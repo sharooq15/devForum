@@ -9,7 +9,8 @@ const routerPaths = {
   'writeAnswer':'/api/answer',
   'markAnswerAsCorrect':'/api/markAnswer',
   'viewUnAnsweredQuestions': '/api/viewQuestions',
-  'viewExistingAnswers':'/api/viewAnswers'
+  'viewExistingAnswers':'/api/viewAnswers',
+  'search':'/api/search'
 };
 
 export {

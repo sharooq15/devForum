@@ -165,6 +165,10 @@ const viewUnAnsweredQuestions = async(
   return true;
 }
 
+export type {
+  Question,
+}
+
 export{
   createQuestion,
   viewUnAnsweredQuestions,

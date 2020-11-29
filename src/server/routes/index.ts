@@ -13,6 +13,7 @@ import {
   markAnswerAsCorrect,
   viewUnAnsweredQuestions,
   viewExistingAnswers,
+  search,
 } from '../controllers';
 
 const router = routerFactory();
@@ -49,6 +50,9 @@ router.route(routerPaths['viewUnAnsweredQuestions'])
 
 router.route(routerPaths['viewExistingAnswers'])
   .get(viewExistingAnswers);
+
+router.route(routerPaths['search'])
+  .get(search);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const  attachRoutes = (app: any) => {
