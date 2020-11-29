@@ -3,4 +3,4 @@ enum Content {
   'Answer',
 }
 
-export { Content }
+export { Content };

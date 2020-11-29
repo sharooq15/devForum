@@ -5,7 +5,6 @@
 - Marking the correct answer for the questions
 - Creating the question comment
 */
-import { response } from 'express';
 import {
   generateUUID,
   docClient,

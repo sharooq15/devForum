@@ -3,15 +3,15 @@ Comment changes will be here
 - Creating comments that are related to question and answers will be done here
 */
 
-import { docClient, getTableName } from '../../api-utils'
+import { docClient, getTableName } from '../../api-utils';
 
 type CreateCommentRequest = {
   body: {
-    contentId: string
-    comment: string
-    commentFor: string
-  }
-}
+    contentId: string;
+    comment: string;
+    commentFor: string;
+  };
+};
 
 const createComment = async (
   req: CreateCommentRequest,
@@ -19,9 +19,9 @@ const createComment = async (
 ): Promise<boolean> => {
   const {
     body: { contentId, comment, commentFor },
-  } = req
+  } = req;
   try {
-    const tableName = getTableName(commentFor)
+    const tableName = getTableName(commentFor);
     const params = {
       TableName: tableName,
       Key: {
@@ -34,17 +34,17 @@ const createComment = async (
         ':c': [comment],
       },
       ReturnValues: 'UPDATED_NEW',
-    }
-    await docClient.update(params).promise()
+    };
+    await docClient.update(params).promise();
   } catch (e) {
-    console.log(`Error Adding Comment to ${commentFor}`)
-    res.send('Error Adding Comment')
-    return false
+    console.log(`Error Adding Comment to ${commentFor}`);
+    res.send('Error Adding Comment');
+    return false;
   }
   if (res) {
-    res.send('Successfully Added the Comment')
+    res.send('Successfully Added the Comment');
   }
-  return true
-}
+  return true;
+};
 
-export { createComment }
+export { createComment };

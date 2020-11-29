@@ -1,4 +1,4 @@
-import { isAlive, notFound } from './app-ctrl'
+import { isAlive, notFound } from './app-ctrl';
 
 import {
   createQuestion,
@@ -7,23 +7,23 @@ import {
   getQuestionsByTag,
 } from './question-ctrl';
 
-import type { UserCreationRequest, UserDetails } from './user-ctrl'
+import type { UserCreationRequest, UserDetails } from './user-ctrl';
 
-import { signup } from './user-ctrl'
+import { signup } from './user-ctrl';
 
-import { createComment } from './comment-ctrl'
+import { createComment } from './comment-ctrl';
 
-import { castVote } from './vote-ctrl'
+import { castVote } from './vote-ctrl';
 
 import {
   writeAnswer,
   markAnswerAsCorrect,
   viewExistingAnswers,
-} from './answer-ctrl'
+} from './answer-ctrl';
 
-import { search } from './search-ctrl'
+import { search } from './search-ctrl';
 
-export type { UserCreationRequest, UserDetails }
+export type { UserCreationRequest, UserDetails };
 
 export {
   castVote,

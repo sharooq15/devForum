@@ -1,9 +1,9 @@
-import { Content } from './types'
+import { Content } from './types';
 
-import { awsConfig } from './aws-config'
+import { awsConfig } from './aws-config';
 
-import { tableNames } from './tables'
+import { tableNames } from './tables';
 
-import { routerPaths } from './paths'
+import { routerPaths } from './paths';
 
-export { Content, awsConfig, tableNames, routerPaths }
+export { Content, awsConfig, tableNames, routerPaths };
