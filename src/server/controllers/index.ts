@@ -30,7 +30,11 @@ import {
   writeAnswer,
   markAnswerAsCorrect,
   viewExistingAnswers,
-} from './answer-ctrl'
+} from './answer-ctrl';
+
+import {
+  search,
+} from './search-ctrl';
 
 export type {
   UserCreationRequest,
@@ -49,4 +53,5 @@ export {
   markAnswerAsCorrect,
   viewUnAnsweredQuestions,
   viewExistingAnswers,
+  search,
 }
