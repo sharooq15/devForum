@@ -64,5 +64,8 @@ httpServer.listen(port, function () {
   console.info(
     `View Existing Answers: ${protocol}://${host}:${port}${routerPaths['viewExistingAnswers']}`
   );
+  console.info(
+    `View Questions by Tags: ${protocol}://${host}:${port}${routerPaths['getQuestionsByTag']}`
+  );
 });
 httpServer.timeout = 900000;

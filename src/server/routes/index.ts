@@ -14,6 +14,7 @@ import {
   viewUnAnsweredQuestions,
   viewExistingAnswers,
   search,
+  getQuestionsByTag,
 } from '../controllers'
 
 const router = routerFactory()
@@ -43,6 +44,8 @@ router
 router.route(routerPaths['viewExistingAnswers']).get(viewExistingAnswers)
 
 router.route(routerPaths['search']).get(search)
+
+router.route(routerPaths['getQuestionsByTag']).get(getQuestionsByTag);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const attachRoutes = (app: any) => {

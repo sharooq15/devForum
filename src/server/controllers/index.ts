@@ -4,7 +4,8 @@ import {
   createQuestion,
   addQuestionTags,
   viewUnAnsweredQuestions,
-} from './question-ctrl'
+  getQuestionsByTag,
+} from './question-ctrl';
 
 import type { UserCreationRequest, UserDetails } from './user-ctrl'
 
@@ -37,4 +38,5 @@ export {
   viewUnAnsweredQuestions,
   viewExistingAnswers,
   search,
-}
+  getQuestionsByTag,
+};

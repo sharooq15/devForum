@@ -11,6 +11,7 @@ const routerPaths = {
   viewUnAnsweredQuestions: '/api/viewQuestions',
   viewExistingAnswers: '/api/viewAnswers',
   search: '/api/search',
-}
+  getQuestionsByTag: '/api/tag',
+};
 
-export { routerPaths }
+export { routerPaths };

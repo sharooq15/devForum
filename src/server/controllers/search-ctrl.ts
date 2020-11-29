@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ItemList } from 'aws-sdk/clients/personalizeruntime';
-import { docClient } from '../../api-utils';
-import { tableNames } from '../../common';
+import { getItemsFromQuestionTable } from '../../api-utils';
 import type { Question } from './question-ctrl';
 
 type SearchInputRequest = {
@@ -46,17 +45,14 @@ const constructSearchDocuments = (input?: ItemList): SearchDocument[] => {
 };
 
 // Note: This is not a optimal solutio for search, we can achieve this using cloud search or elastic search
-
+// The search will return answered questions as well as we can search for any questions.
 const search = async (req: SearchInputRequest, res: any): Promise<boolean> => {
   const {
     body: { input },
   } = req;
   const questions: Question[] = [];
   try {
-    const params = {
-      TableName: tableNames.QUESTION,
-    };
-    const responseItems = await docClient.scan(params).promise();
+    const responseItems = await getItemsFromQuestionTable();
     const searchDocuments = constructSearchDocuments(responseItems.Items);
     if (searchDocuments && searchDocuments.length) {
       searchDocuments.forEach((doc) => {
