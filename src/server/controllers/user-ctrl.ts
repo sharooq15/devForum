@@ -1,68 +1,52 @@
 // NOTE: User related operation will be listed here.
-import { 
-  generateUUID,
-  docClient
-} from '../../api-utils';
+import { generateUUID, docClient } from '../../api-utils'
 
-import {
-  tableNames
-} from '../../common';
+import { tableNames } from '../../common'
 
 type UserDetails = {
-  id: string;
-  username: string;
-  password: string;
+  id: string
+  username: string
+  password: string
 }
 
 type UserCreationRequest = {
   body: {
-    username: string;
-    password: string;
+    username: string
+    password: string
   }
 }
 
-const signup = async (
-  req: UserCreationRequest, 
-  res: any
-): Promise<boolean> => {
+const signup = async (req: UserCreationRequest, res: any): Promise<boolean> => {
   const {
-    body: {
-      username,
-      password
-    }
-  } = req;
+    body: { username, password },
+  } = req
   const response: UserDetails = {
     id: generateUUID(),
     username,
-    password
+    password,
   }
-  try{
+  try {
     const input = {
-      "id": response.id,
-      "un": username,
-      "pw": password,
-    };
+      id: response.id,
+      un: username,
+      pw: password,
+    }
     const params = {
       TableName: tableNames.USER,
-      Item: input
-    };
-    await docClient.put(params).promise();
-  }catch(e){
-    console.log('Error Creating User Record', e);
-    res.send('Error Creating User Record');
-    return false;
+      Item: input,
+    }
+    await docClient.put(params).promise()
+  } catch (e) {
+    console.log('Error Creating User Record', e)
+    res.send('Error Creating User Record')
+    return false
   }
 
-  if(res){
-    res.send(response);
+  if (res) {
+    res.send(response)
   }
-  return true;
+  return true
 }
 
-export type {
-  UserCreationRequest,
-  UserDetails
-}
-export { 
-  signup
-}
+export type { UserCreationRequest, UserDetails }
+export { signup }

@@ -1,8 +1,6 @@
 enum Content {
-  "Question",
-  "Answer"
+  'Question',
+  'Answer',
 }
 
-export {
-  Content
-}
+export { Content }

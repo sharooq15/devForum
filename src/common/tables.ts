@@ -1,9 +1,7 @@
 const tableNames = {
-  "USER": "user",
-  "QUESTION": "question",
-  "ANSWER": "answer",
+  USER: 'user',
+  QUESTION: 'question',
+  ANSWER: 'answer',
 }
 
-export {
-  tableNames
-}
+export { tableNames }

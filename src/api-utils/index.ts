@@ -1,11 +1,3 @@
-import { 
-  generateUUID,
-  docClient,
-  getTableName
-} from './api-util'
+import { generateUUID, docClient, getTableName } from './api-util'
 
-export {
-  generateUUID,
-  docClient,
-  getTableName
-}
+export { generateUUID, docClient, getTableName }

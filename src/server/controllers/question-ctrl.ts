@@ -4,173 +4,157 @@
 - Marking the correct answer for the questions
 - Creating the question comment
 */
-import { 
-  generateUUID,
-  docClient,
-} from '../../api-utils';
-import { 
-  tableNames 
-} from '../../common';
+import { generateUUID, docClient } from '../../api-utils'
+import { tableNames } from '../../common'
 
 type CreateQuestionRequest = {
   body: {
-    stem: string,
-    description: string,
-    ownerId: string,
-    tags?: string[],
+    stem: string
+    description: string
+    ownerId: string
+    tags?: string[]
   }
 }
 
 type QuestionDetails = {
-  id: string,
-  stem: string,
-  description: string,
-  ownerId: string,
+  id: string
+  stem: string
+  description: string
+  ownerId: string
 }
 
 type Question = {
-  id: string,
-  stem: string,
-  description: string,
-  votes: number,
-  comments: string[],
-  tags: string[],
+  id: string
+  stem: string
+  description: string
+  votes: number
+  comments: string[]
+  tags: string[]
 }
 
 type AddTagRequest = {
   body: {
-    questionId: string,
+    questionId: string
     tags: string[]
   }
 }
 
 const createQuestion = async (
-  req: CreateQuestionRequest, 
+  req: CreateQuestionRequest,
   res: any
 ): Promise<boolean> => {
   const {
-    body: {
-      stem,
-      description,
-      ownerId,
-      tags
-    }
-  } = req;
+    body: { stem, description, ownerId, tags },
+  } = req
   const response: QuestionDetails = {
     id: generateUUID(),
     stem,
     description,
     ownerId,
   }
-  try{
+  try {
     const input = {
-      "id": response.id,
-      "t": stem,
-      "d": description,
-      "uId": ownerId,
+      id: response.id,
+      t: stem,
+      d: description,
+      uId: ownerId,
       /* NOTE: I'm making the answered status of the question false by default as no questions can be answerd during its creation.
       and comments to empty array followed by votes to 0
       */
-      "anS": false,
-      "c": [],
-      "vt": 0,
-      "tgs": tags || []
-    };
+      anS: false,
+      c: [],
+      vt: 0,
+      tgs: tags || [],
+    }
     const params = {
       TableName: tableNames.QUESTION,
-      Item: input
-    };
-    await docClient.put(params).promise();
-  }catch(e){
-    console.log('Error Creating Question Record', e);
-    res.send('Error Creating Question Record');
-    return false;
+      Item: input,
+    }
+    await docClient.put(params).promise()
+  } catch (e) {
+    console.log('Error Creating Question Record', e)
+    res.send('Error Creating Question Record')
+    return false
   }
 
-  if(res){
-    res.send(response);
+  if (res) {
+    res.send(response)
   }
-  return true;
+  return true
 }
 
-const addQuestionTags = async(
-  req:AddTagRequest, 
-  res:any
-):Promise<boolean> => {
+const addQuestionTags = async (
+  req: AddTagRequest,
+  res: any
+): Promise<boolean> => {
   const {
-    body: {
-      questionId,
-      tags,
-    }
-  } = req;
-  try{
+    body: { questionId, tags },
+  } = req
+  try {
     const params = {
       TableName: tableNames.QUESTION,
       Key: {
-        "id": questionId,
+        id: questionId,
       },
-      UpdateExpression: "set tgs = list_append(if_not_exists(tgs, :empty_list), :tgs)",
+      UpdateExpression:
+        'set tgs = list_append(if_not_exists(tgs, :empty_list), :tgs)',
       ExpressionAttributeValues: {
-        ":empty_list": [],
-        ":tgs": tags,
+        ':empty_list': [],
+        ':tgs': tags,
       },
-      ReturnValues: "UPDATED_NEW"
-    };
-    await docClient.update(params).promise();
-    if(res){
-      res.send(`Successfully added question tags for ${questionId}`);
+      ReturnValues: 'UPDATED_NEW',
     }
-  }catch(e){
-    console.log('Error Tagging Question', e);
-    res.send('Error Tagging Question');
-    return false;
+    await docClient.update(params).promise()
+    if (res) {
+      res.send(`Successfully added question tags for ${questionId}`)
+    }
+  } catch (e) {
+    console.log('Error Tagging Question', e)
+    res.send('Error Tagging Question')
+    return false
   }
-  return true;
+  return true
 }
 
-const viewUnAnsweredQuestions = async(
-  req: null, 
+const viewUnAnsweredQuestions = async (
+  req: null,
   res: any
 ): Promise<boolean> => {
   try {
     const params = {
       TableName: tableNames.QUESTION,
-      FilterExpression: "anS = :anS",
+      FilterExpression: 'anS = :anS',
       ExpressionAttributeValues: {
-        ":anS": false
-      }
-    };
-    const responseItems = await docClient.scan(params).promise();
-    const questions: Question[] | undefined = responseItems.Items?.map((item) =>{
-      const question: Question = {
-        id: item.id,
-        stem: item.t,
-        description: item.d,
-        votes: item.vt,
-        comments: item.c,
-        tags: item.tgs,
-      }
-      return question;
-    })
-    if(res && questions && questions.length) {
-      res.send(questions);
-    } else if(res){
-      res.send('All the questions are answered');
+        ':anS': false,
+      },
     }
-  }catch(e){
-    console.log('Error Getting Question', e);
-    res.send('Error Getting Question');
-    return false;
+    const responseItems = await docClient.scan(params).promise()
+    const questions: Question[] | undefined = responseItems.Items?.map(
+      (item) => {
+        const question: Question = {
+          id: item.id,
+          stem: item.t,
+          description: item.d,
+          votes: item.vt,
+          comments: item.c,
+          tags: item.tgs,
+        }
+        return question
+      }
+    )
+    if (res && questions && questions.length) {
+      res.send(questions)
+    } else if (res) {
+      res.send('All the questions are answered')
+    }
+  } catch (e) {
+    console.log('Error Getting Question', e)
+    res.send('Error Getting Question')
+    return false
   }
-  return true;
+  return true
 }
 
-export type {
-  Question,
-}
+export type { Question }
 
-export{
-  createQuestion,
-  viewUnAnsweredQuestions,
-  addQuestionTags
-}
+export { createQuestion, viewUnAnsweredQuestions, addQuestionTags }
