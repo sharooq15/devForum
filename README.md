@@ -6,7 +6,7 @@ This repository contains all the packages that make up a developer forum to work
 - *ANSWER* This service holds the changes for answering a question, comment on it, vote on it, list all the available answers for the question and the owner can select the correct answer.
 
 Working on this code base:
-To see the api's with its default input type [import](https://www.getpostman.com/collections/b867915168212bed9c34) this postman Collection.
+To see the api's with its default input type [import](https://www.getpostman.com/collections/b867915168212bed9c34) this postman Collection or you can find it in project as apis.json.
 
 *Note: To run this project locally
 ```
