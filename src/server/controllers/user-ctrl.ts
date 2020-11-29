@@ -49,6 +49,8 @@ const signup = async (
     await docClient.put(params).promise();
   }catch(e){
     console.log('Error Creating User Record', e);
+    res.send('Error Creating User Record');
+    return false;
   }
 
   if(res){

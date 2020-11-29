@@ -42,6 +42,8 @@ const castVote = async (
   
   }catch (e) {
     console.log('Error Casting Vote', e);
+    res.send(`Error Casting Vote To ${voteFor}`);
+    return false;
   }
   if(res){
     res.send(`Successfully Casted Your Vote To ${voteFor}`);

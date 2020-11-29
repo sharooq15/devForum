@@ -17,6 +17,7 @@ type CreateQuestionRequest = {
     stem: string,
     description: string,
     ownerId: string,
+    tags?: string[],
   }
 }
 
@@ -33,6 +34,7 @@ type Question = {
   description: string,
   votes: number,
   comments: string[],
+  tags: string[],
 }
 
 type AddTagRequest = {
@@ -70,7 +72,8 @@ const createQuestion = async (
       */
       "anS": false,
       "c": [],
-      "vt": 0
+      "vt": 0,
+      "tgs": []
     };
     const params = {
       TableName: tableNames.QUESTION,
@@ -79,6 +82,8 @@ const createQuestion = async (
     await docClient.put(params).promise();
   }catch(e){
     console.log('Error Creating Question Record', e);
+    res.send('Error Creating Question Record');
+    return false;
   }
 
   if(res){
@@ -87,17 +92,39 @@ const createQuestion = async (
   return true;
 }
 
-const addQuestionTags = (
+const addQuestionTags = async(
   req:AddTagRequest, 
   res:any
-) => {
+):Promise<boolean> => {
   const {
     body: {
       questionId,
-      tags
+      tags,
     }
   } = req;
-  res.send(`Successfully added question tags for ${questionId}`);
+  try{
+    const params = {
+      TableName: tableNames.QUESTION,
+      Key: {
+        "id": questionId,
+      },
+      UpdateExpression: "set tgs = list_append(if_not_exists(tgs, :empty_list), :tgs)",
+      ExpressionAttributeValues: {
+        ":empty_list": [],
+        ":tgs": tags,
+      },
+      ReturnValues: "UPDATED_NEW"
+    };
+    await docClient.update(params).promise();
+    if(res){
+      res.send(`Successfully added question tags for ${questionId}`);
+    }
+  }catch(e){
+    console.log('Error Tagging Question', e);
+    res.send('Error Tagging Question');
+    return false;
+  }
+  return true;
 }
 
 const viewUnAnsweredQuestions = async(
@@ -120,6 +147,7 @@ const viewUnAnsweredQuestions = async(
         description: item.d,
         votes: item.vt,
         comments: item.c,
+        tags: item.tgs,
       }
       return question;
     })
@@ -130,6 +158,8 @@ const viewUnAnsweredQuestions = async(
     }
   }catch(e){
     console.log('Error Getting Question', e);
+    res.send('Error Getting Question');
+    return false;
   }
   return true;
 }
