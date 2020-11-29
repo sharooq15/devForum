@@ -16,6 +16,9 @@ yarn start
 
 You can see the urls to api's will be listed in the console like this
 
+<img width="552" alt="Screenshot 2020-11-29 at 5 11 27 PM" src="https://user-images.githubusercontent.com/28434309/100541171-006c0980-3268-11eb-977a-f854dd083b18.png">
+
+
 You can follow the url's in the terminal or replace the hostname in postman collection to localhost:3000
 
 ### TABLES CREATED
